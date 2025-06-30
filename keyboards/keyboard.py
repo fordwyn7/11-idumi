@@ -61,6 +61,8 @@ adminlar_paneli = ReplyKeyboardMarkup(
         [
             KeyboardButton(text="Admin qoshish ➕"),
             KeyboardButton(text="Adminlarni ko'rish 📋"),
+        ],
+        [
             KeyboardButton(text="admin panelga qaytish 🔙"),
         ],
     ],
