@@ -7,7 +7,7 @@ from middlewares.middleware import *
 import sqlite3
 
 
-@dp.message(F.text == "o'qituvchilar uchun parol ✍️")
+@dp.message(F.text == "O'qituvchilar uchun parol ✍️")
 @admin_required()
 async def password_change_section(message: types.Message, state: FSMContext):
     conn = sqlite3.connect("users_database.db")
@@ -27,7 +27,7 @@ async def password_change_section(message: types.Message, state: FSMContext):
         )
 
 
-@dp.message(F.text == "statistika ⭐️")
+@dp.message(F.text == "Statistika ⭐️")
 @admin_required()
 async def statistics(message: types.Message, state: FSMContext):
     await message.answer(
@@ -42,7 +42,7 @@ async def statistics(message: types.Message, state: FSMContext):
 grades = ["11-A", "11-B", "11-V", "10-A", "10-B", "10-V", "9-A", "8-A", "8-B"]
 
 
-@dp.message(F.text == "o'quvchilar baza 📫")
+@dp.message(F.text == "O'quvchilar baza 📫")
 @admin_required()
 async def data_of_students(message: types.Message, state: FSMContext):
     builder = InlineKeyboardBuilder()
@@ -58,6 +58,15 @@ async def data_of_students(message: types.Message, state: FSMContext):
 async def send_message_to_users(message: types.Message, state: FSMContext):
     await message.answer("Habar yubormoqchi bo'lgan odamingizni telegram ID si yoki pasport seria va raqamini kiriting ✏️:", reply_markup=cancel_for_admin_panel)
     await state.set_state(send_message.seria)
+    
+@dp.message(F.text == "Admin qoshish ➕")
+@admin_required()
+async def add_admin(message: types.Message, state: FSMContext):
+    await message.answer(
+        "Yangi admin qo'shish uchun uning telegram ID sini kiriting: ✏️",
+        reply_markup=cancel_for_admin_panel,
+    )
+    await state.set_state(add_admin_state.admin_id)
 @dp.message(F.text == "bekor qilish 🔙")
 @admin_required()
 async def back_to_admin_panel(message: types.Message, state: FSMContext):

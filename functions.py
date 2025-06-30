@@ -38,6 +38,23 @@ def is_user_registered(user_id):
         return None
 
 
+def is_user_new(user_id):
+    try:
+        with connect_db() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                "SELECT * FROM new_users WHERE user_id = ?",
+                (user_id,),
+            )
+            user = cursor.fetchone()
+            if user:
+                return False
+        return True
+    except sqlite3.Error as e:
+        print(f"Error checking if user is new: {e}")
+        return None
+
+
 def get_level_user(user_id):
     try:
         with connect_db() as conn:
@@ -115,10 +132,13 @@ def get_admins():
     conn.close()
     return admins
 
+
 def get_seria_by_user_id(user_id):
     conn = sqlite3.connect("users_database.db")
     cursor = conn.cursor()
-    cursor.execute("SELECT student_passport_seria FROM parents WHERE user_id = ?", (user_id,))
+    cursor.execute(
+        "SELECT student_passport_seria FROM parents WHERE user_id = ?", (user_id,)
+    )
     datta = cursor.fetchall()[0]
     conn.close()
     return datta[0]
@@ -165,35 +185,45 @@ def get_student_by_parent_user_id(user_id: int):
     conn.close()
     return student
 
+
 STUDENTS_PER_PAGE = 15
+
+
 def get_students_by_grade(grade: str, page: int) -> tuple[list, int]:
     offset = page * STUDENTS_PER_PAGE
     conn = sqlite3.connect("users_database.db")
     cursor = conn.cursor()
-    
+
     try:
         # Get paginated students
-        cursor.execute("""
+        cursor.execute(
+            """
             SELECT full_name, passport_seria
             FROM students
             WHERE grade = ?
             ORDER BY full_name COLLATE NOCASE
             LIMIT ? OFFSET ?
-        """, (grade, STUDENTS_PER_PAGE, offset))
+        """,
+            (grade, STUDENTS_PER_PAGE, offset),
+        )
         students = cursor.fetchall()
 
         # Get total count
-        cursor.execute("""
+        cursor.execute(
+            """
             SELECT COUNT(*)
             FROM students
             WHERE grade = ?
-        """, (grade,))
+        """,
+            (grade,),
+        )
         total_students = cursor.fetchone()[0]
-        
+
         total_pages = (total_students + STUDENTS_PER_PAGE - 1) // STUDENTS_PER_PAGE
         return students, total_pages
     finally:
         conn.close()
+
 
 def count_students_by_grade(grade):
     conn = sqlite3.connect("users_database.db")
@@ -203,7 +233,10 @@ def count_students_by_grade(grade):
     conn.close()
     return count
 
-def get_students_keyboard(grade: str, page: int, total_pages: int) -> InlineKeyboardMarkup:
+
+def get_students_keyboard(
+    grade: str, page: int, total_pages: int
+) -> InlineKeyboardMarkup:
     inline_keyboard = []
 
     nav_buttons = []
@@ -226,11 +259,13 @@ def get_students_keyboard(grade: str, page: int, total_pages: int) -> InlineKeyb
         inline_keyboard.append(nav_buttons)
 
     # Back to grades
-    inline_keyboard.append([
-        InlineKeyboardButton(
-            text="🔙 Sinflarga qaytish", callback_data="back_to_grades"
-        )
-    ])
+    inline_keyboard.append(
+        [
+            InlineKeyboardButton(
+                text="🔙 Sinflarga qaytish", callback_data="back_to_grades"
+            )
+        ]
+    )
 
     return InlineKeyboardMarkup(inline_keyboard=inline_keyboard)
 
@@ -246,3 +281,16 @@ def count_students_by_grade():
         result.append(f"▫️ *{grade}*: {count}")
     conn.close()
     return "\n".join(result)
+
+
+def add_user_to_new_users(user_id, full_name, username):
+    try:
+        with connect_db() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                "INSERT INTO new_users (user_id, full_name, registration_date, username) VALUES (?, ?, datetime('now', '+5 hours'), ?)",
+                (user_id, full_name, username),
+            )
+            conn.commit()
+    except sqlite3.Error as e:
+        print(f"Error adding user to new users: {e}")

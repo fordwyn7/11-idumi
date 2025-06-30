@@ -15,3 +15,6 @@ class ask_question(StatesGroup):
 class send_message(StatesGroup):
     msg = State()
     seria = State()
+    
+class add_admin_state(StatesGroup):
+    admin_id = State()

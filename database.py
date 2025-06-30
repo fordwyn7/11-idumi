@@ -58,6 +58,16 @@ cursor.execute(
     );
     """
 )
+cursor.execute(
+    """
+CREATE TABLE IF NOT EXISTS new_users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER UNIQUE NOT NULL,
+    full_name TEXT,
+    registration_date TEXT,
+    username TEXT UNIQUE
+    """
+)
 # cursor.execute("DELETE FROM students;")
 # cursor.execute("DELETE FROM teachers;")
 # cursor.execute("DELETE FROM parents;")

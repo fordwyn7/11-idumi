@@ -41,16 +41,15 @@ main_menu_teacher = ReplyKeyboardMarkup(
 main_menu_admin = ReplyKeyboardMarkup(
     keyboard=[
         [
-            KeyboardButton(text="Hisobot 🗒"),
-            KeyboardButton(text="statistika ⭐️"),
+            KeyboardButton(text="Statistika ⭐️"),
+            KeyboardButton(text="O'qituvchilar uchun parol ✍️"),
         ],
         [
-            KeyboardButton(text="o'quvchilar ID kartalari 💳"),
-            KeyboardButton(text="o'qituvchilar uchun parol ✍️"),
-        ],
-        [
-            KeyboardButton(text="o'quvchilar baza 📫"),
+            KeyboardButton(text="O'quvchilar baza 📫"),
             KeyboardButton(text="Habar yuborish 📤"),
+        ],
+        [
+            KeyboardButton(text="Admin qoshish ➕"),
         ],
     ],
     resize_keyboard=True,

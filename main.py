@@ -15,6 +15,8 @@ import states.state_handler
 async def cmd_start(message: types.Message, state: FSMContext):
     await state.clear()
     user_id = message.from_user.id 
+    if is_user_new(user_id):
+        add_user_to_new_users(user_id, message.from_user.full_name, message.from_user.username)
     if is_user_registered(user_id):
         level = get_level_user(user_id)
         if level == "parent":
