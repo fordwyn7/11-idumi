@@ -66,6 +66,7 @@ CREATE TABLE IF NOT EXISTS new_users (
     full_name TEXT,
     registration_date TEXT,
     username TEXT UNIQUE
+    );
     """
 )
 # cursor.execute("DELETE FROM students;")
