@@ -294,3 +294,14 @@ def add_user_to_new_users(user_id, full_name, username):
             conn.commit()
     except sqlite3.Error as e:
         print(f"Error adding user to new users: {e}")
+
+def generate_callback(action: str, admin_id: int) -> str:
+    return f"{action}:{admin_id}"
+
+def get_admins2():
+    conn = sqlite3.connect("users.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT user_id FROM admins")
+    admins = [{"id": row[0], "name": f"Admin {row[0]}"} for row in cursor.fetchall()]
+    conn.close()
+    return admins

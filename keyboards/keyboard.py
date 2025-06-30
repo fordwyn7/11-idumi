@@ -49,7 +49,19 @@ main_menu_admin = ReplyKeyboardMarkup(
             KeyboardButton(text="Habar yuborish 📤"),
         ],
         [
+            KeyboardButton(text="Adminlikdan chiqish 🔙"),
+            KeyboardButton(text="Adminlar paneli 📋"),
+        ],
+    ],
+    resize_keyboard=True,
+)
+
+adminlar_paneli = ReplyKeyboardMarkup(
+    keyboard=[
+        [
             KeyboardButton(text="Admin qoshish ➕"),
+            KeyboardButton(text="Adminlarni ko'rish 📋"),
+            KeyboardButton(text="Asosiy menuga qaytish 🔙"),
         ],
     ],
     resize_keyboard=True,

@@ -329,23 +329,20 @@ async def sending_message_to_user(message: types.Message, state: FSMContext):
         )
         await state.clear()
 
+
 @dp.message(add_admin_state.admin_id)
 async def add_admin(message: types.Message, state: FSMContext):
     text = message.text
     if text == "bekor qilish 🔙":
         await state.clear()
-        await message.answer(
-            "Siz asosiy menudasiz 👇", reply_markup=main_menu_admin
-        )
+        await message.answer("Siz asosiy menudasiz 👇", reply_markup=main_menu_admin)
         return
     try:
         user_id = int(text)
         conn = sqlite3.connect("users_database.db")
         cursor = conn.cursor()
         # find user_id from new_users table
-        cursor.execute(
-            "SELECT * FROM new_users WHERE user_id = ?", (user_id,)
-        )   
+        cursor.execute("SELECT * FROM new_users WHERE user_id = ?", (user_id,))
         data = cursor.fetchone()
         if not data:
             await message.answer(
@@ -354,12 +351,15 @@ async def add_admin(message: types.Message, state: FSMContext):
             )
             await state.clear()
             return
-        cursor.execute(
-            "INSERT OR IGNORE INTO admins (user_id) VALUES (?)", (user_id,)
-        )
+        cursor.execute("INSERT OR IGNORE INTO admins (user_id) VALUES (?)", (user_id,))
         conn.commit()
         await message.answer(
             "Admin muvaffaqiyatli qo'shildi ✅", reply_markup=main_menu_admin
+        )
+        await bot.send_message(
+            chat_id=user_id,
+            text="Sizga adminlik huquqi berildi ✅",
+            reply_markup=main_menu_admin,
         )
         await state.clear()
     except Exception as e:

@@ -53,12 +53,17 @@ async def data_of_students(message: types.Message, state: FSMContext):
         "📚 Qaysi sinfni ko'rmoqchisiz?", reply_markup=builder.as_markup()
     )
 
+
 @dp.message(F.text == "Habar yuborish 📤")
 @admin_required()
 async def send_message_to_users(message: types.Message, state: FSMContext):
-    await message.answer("Habar yubormoqchi bo'lgan odamingizni telegram ID si yoki pasport seria va raqamini kiriting ✏️:", reply_markup=cancel_for_admin_panel)
+    await message.answer(
+        "Habar yubormoqchi bo'lgan odamingizni telegram ID si yoki pasport seria va raqamini kiriting ✏️:",
+        reply_markup=cancel_for_admin_panel,
+    )
     await state.set_state(send_message.seria)
-    
+
+
 @dp.message(F.text == "Admin qoshish ➕")
 @admin_required()
 async def add_admin(message: types.Message, state: FSMContext):
@@ -67,11 +72,39 @@ async def add_admin(message: types.Message, state: FSMContext):
         reply_markup=cancel_for_admin_panel,
     )
     await state.set_state(add_admin_state.admin_id)
+
+
+@dp.message(F.text == "Adminlarni ko'rish 📋")
+@admin_required()
+async def show_admins(message: types.Message, state: FSMContext):
+    user_id = message.from_user.id
+    if not user_id in [1155076760, 6807731973]:
+        await message.answer("Sizda bu amalni bajarish huquqi yo'q.", reply_markup=adminlar_paneli)
+        return
+    admins = get_admins2()
+    if not admins:
+        await message.answer("Hozircha adminlar ro'yxati bo'sh.")
+        return
+    keyboard = InlineKeyboardBuilder()
+    for admin in admins:
+        callback_data = generate_callback("delete_admin", admin["id"])
+        keyboard.row(
+            InlineKeyboardButton(
+                text=f"❌ {admin['name'] or admin['id']}",
+                callback_data=callback_data,
+            )
+        )
+
+    await message.answer("Adminlar ro'yxati:", reply_markup=keyboard.as_markup())
+
+
 @dp.message(F.text == "bekor qilish 🔙")
 @admin_required()
 async def back_to_admin_panel(message: types.Message, state: FSMContext):
     await state.clear()
     await message.answer("Siz asosiy menudasiz 👇", reply_markup=main_menu_admin)
+
+
 @dp.message(F.text == "profil 👤")
 @parent_required()
 async def student_profile_show(message: types.Message, state: FSMContext):

@@ -359,3 +359,35 @@ async def cancel_and_to_main_menu(
         "Siz asosiy menudasiz 👇", reply_markup=main_menu_parent
     )
     await state.clear()
+
+
+
+
+@dp.callback_query(F.data.startswith("delete_admin"))
+async def delete_admin_callback(query: types.CallbackQuery):
+    callback_data = query.data.split(":")
+    action = callback_data[0]
+    admin_id = int(callback_data[1])
+    if int(admin_id) in [6807731973, 1155076760]:
+        await query.answer("Bu botning asosiy admini. Siz uni o'chira olmaysiz❗️")
+    else:
+        if action == "delete_admin":
+            conn = sqlite3.connect("users_database.db")
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM admins WHERE user_id = ?", (admin_id,))
+            conn.commit()
+            conn.close()
+            await query.answer("Admin muvaffaqiyatli o'chirildi.")
+
+            conn = sqlite3.connect("users_database.db")
+            cursor = conn.cursor()
+            cursor.execute("SELECT user_id FROM admins")
+            remaining_admins = [row[0] for row in cursor.fetchall()]
+            conn.close()
+            keyboard_builder = InlineKeyboardBuilder()
+            for admin in remaining_admins:
+                keyboard_builder.button(
+                    text=f"❌ Admin {admin}", callback_data=f"delete_admin:{admin}"
+                )
+            keyboard = keyboard_builder.as_markup()
+            await query.message.edit_reply_markup(reply_markup=keyboard)
