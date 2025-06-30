@@ -73,6 +73,22 @@ async def add_admin(message: types.Message, state: FSMContext):
     )
     await state.set_state(add_admin_state.admin_id)
 
+@dp.message(F.text == "Adminlar paneli 📋")
+@admin_required()
+async def admin_paneli(message: types.Message, state: FSMContext):
+    await message.answer(
+        "Quyidagi amallardan birini tanlang 👇",
+        reply_markup=adminlar_paneli,
+    )
+    await state.clear()
+
+@dp.message(F.text == "admin panelga qaytish 🔙")
+@admin_required()
+async def back_to_admin_panel(message: types.Message, state: FSMContext):
+    await message.answer(
+        "Siz admin paneldasiz 👇", reply_markup=main_menu_admin
+    )
+    await state.clear()
 
 @dp.message(F.text == "Adminlarni ko'rish 📋")
 @admin_required()
