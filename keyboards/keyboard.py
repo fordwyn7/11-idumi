@@ -9,12 +9,12 @@ def get_main_menu(user_id):
                 KeyboardButton(text="Qabul 📩"),
             ],
             [
-                KeyboardButton(text="O'qituvchilar 👨‍🏫"),
+                KeyboardButton(text="Biz haqimizda 💠"),
                 KeyboardButton(text="Statistika 📊"),
             ],
             [
+                KeyboardButton(text="Savollar ❓"),
                 KeyboardButton(text="Aloqa 📞"),
-                KeyboardButton(text="Biz haqimizda 💠"),
             ],
         ],
         resize_keyboard=True,
