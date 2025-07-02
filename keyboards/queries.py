@@ -173,42 +173,42 @@ async def back_to_grades(callback: CallbackQuery):
     )
 
 
-@dp.callback_query(lambda c: c.data == "confirm_log_out_parent")
-@parent_required()
-async def confirm_log_out_parents(callback: CallbackQuery):
-    try:
-        conn = sqlite3.connect("users_database.db")
-        cursor = conn.cursor()
-        cursor.execute(
-            "DELETE FROM parents WHERE user_id = ?", (callback.from_user.id,)
-        )
-        conn.commit()
-        conn.close()
-        await callback.message.delete()
-        await callback.message.answer(
-            "Siz hisobdan muvaffaqiyatli chiqdingiz ✅",
-            reply_markup=ReplyKeyboardRemove(),
-        )
-        await callback.message.answer(
-            "Botga kim sifatida kirmoqdasiz ? 👇", reply_markup=select_level_users
-        )
-    except:
-        await callback.message.delete()
-        await callback.message.answer(
-            "Xatolik yuz berdi 😕. Birozdan so'ng qayta urinib ko'ring",
-            reply_markup=main_menu_parent,
-        )
+# @dp.callback_query(lambda c: c.data == "confirm_log_out_parent")
+# @parent_required()
+# async def confirm_log_out_parents(callback: CallbackQuery):
+#     try:
+#         conn = sqlite3.connect("users_database.db")
+#         cursor = conn.cursor()
+#         cursor.execute(
+#             "DELETE FROM parents WHERE user_id = ?", (callback.from_user.id,)
+#         )
+#         conn.commit()
+#         conn.close()
+#         await callback.message.delete()
+#         await callback.message.answer(
+#             "Siz hisobdan muvaffaqiyatli chiqdingiz ✅",
+#             reply_markup=ReplyKeyboardRemove(),
+#         )
+#         await callback.message.answer(
+#             "Botga kim sifatida kirmoqdasiz ? 👇", reply_markup=select_level_users
+#         )
+#     except:
+#         await callback.message.delete()
+#         await callback.message.answer(
+#             "Xatolik yuz berdi 😕. Birozdan so'ng qayta urinib ko'ring",
+#             reply_markup=main_menu_parent,
+#         )
 
 
-@dp.callback_query(lambda c: c.data == "cancel_log_out_parent")
-@parent_required()
-async def cancel_log_out_parents(callback: CallbackQuery):
-    await callback.answer("Muvaffaqiyatli bekor qilindi ✔️", show_alert=True)
-    await callback.message.delete()
-    await callback.message.answer(
-        "Siz asosiy menudasiz 👇",
-        reply_markup=main_menu_parent,
-    )
+# @dp.callback_query(lambda c: c.data == "cancel_log_out_parent")
+# @parent_required()
+# async def cancel_log_out_parents(callback: CallbackQuery):
+#     await callback.answer("Muvaffaqiyatli bekor qilindi ✔️", show_alert=True)
+#     await callback.message.delete()
+#     await callback.message.answer(
+#         "Siz asosiy menudasiz 👇",
+#         reply_markup=main_menu_parent,
+#     )
 
 
 @dp.message(CommandStart(deep_link=True))
@@ -278,42 +278,42 @@ async def handle_deep_link(message: types.Message, command: CommandObject):
             )
 
 
-@dp.callback_query(lambda c: c.data == "confirm_log_out_teacher")
-@teacher_required()
-async def confirm_log_out_teachers(callback: CallbackQuery):
-    try:
-        conn = sqlite3.connect("users_database.db")
-        cursor = conn.cursor()
-        cursor.execute(
-            "DELETE FROM teachers WHERE user_id = ?", (callback.from_user.id,)
-        )
-        conn.commit()
-        conn.close()
-        await callback.message.delete()
-        await callback.message.answer(
-            "Siz hisobdan muvaffaqiyatli chiqdingiz ✅",
-            reply_markup=ReplyKeyboardRemove(),
-        )
-        await callback.message.answer(
-            "Botga kim sifatida kirmoqdasiz ? 👇", reply_markup=select_level_users
-        )
-    except:
-        await callback.message.delete()
-        await callback.message.answer(
-            "Xatolik yuz berdi 😕. Birozdan so'ng qayta urinib ko'ring",
-            reply_markup=main_menu_teacher,
-        )
+# @dp.callback_query(lambda c: c.data == "confirm_log_out_teacher")
+# @teacher_required()
+# async def confirm_log_out_teachers(callback: CallbackQuery):
+#     try:
+#         conn = sqlite3.connect("users_database.db")
+#         cursor = conn.cursor()
+#         cursor.execute(
+#             "DELETE FROM teachers WHERE user_id = ?", (callback.from_user.id,)
+#         )
+#         conn.commit()
+#         conn.close()
+#         await callback.message.delete()
+#         await callback.message.answer(
+#             "Siz hisobdan muvaffaqiyatli chiqdingiz ✅",
+#             reply_markup=ReplyKeyboardRemove(),
+#         )
+#         await callback.message.answer(
+#             "Botga kim sifatida kirmoqdasiz ? 👇", reply_markup=select_level_users
+#         )
+#     except:
+#         await callback.message.delete()
+#         await callback.message.answer(
+#             "Xatolik yuz berdi 😕. Birozdan so'ng qayta urinib ko'ring",
+#             reply_markup=main_menu_teacher,
+#         )
 
 
-@dp.callback_query(lambda c: c.data == "cancel_log_out_teacher")
-@teacher_required()
-async def cancel_log_out_teachers(callback: CallbackQuery):
-    await callback.answer("Muvaffaqiyatli bekor qilindi ✔️", show_alert=True)
-    await callback.message.delete()
-    await callback.message.answer(
-        "Siz asosiy menudasiz 👇",
-        reply_markup=main_menu_teacher,
-    )
+# @dp.callback_query(lambda c: c.data == "cancel_log_out_teacher")
+# @teacher_required()
+# async def cancel_log_out_teachers(callback: CallbackQuery):
+#     await callback.answer("Muvaffaqiyatli bekor qilindi ✔️", show_alert=True)
+#     await callback.message.delete()
+#     await callback.message.answer(
+#         "Siz asosiy menudasiz 👇",
+#         reply_markup=main_menu_teacher,
+#     )
 
 
 @dp.callback_query(F.data.startswith("confirm_with_jshshir_"))
@@ -349,16 +349,16 @@ async def cancel_confirming_with_jshshir_query(
     await state.clear()
 
 
-@dp.callback_query(lambda c: c.data == "cancel_andtomain")
-async def cancel_and_to_main_menu(
-    callback: CallbackQuery, state: FSMContext
-):
-    await callback.answer("Muvaffaqiyatli bekor qilindi ✔️", show_alert=True)
-    await callback.message.delete()
-    await callback.message.answer(
-        "Siz asosiy menudasiz 👇", reply_markup=main_menu_parent
-    )
-    await state.clear()
+# @dp.callback_query(lambda c: c.data == "cancel_andtomain")
+# async def cancel_and_to_main_menu(
+#     callback: CallbackQuery, state: FSMContext
+# ):
+#     await callback.answer("Muvaffaqiyatli bekor qilindi ✔️", show_alert=True)
+#     await callback.message.delete()
+#     await callback.message.answer(
+#         "Siz asosiy menudasiz 👇", reply_markup=main_menu_parent
+#     )
+#     await state.clear()
 
 
 

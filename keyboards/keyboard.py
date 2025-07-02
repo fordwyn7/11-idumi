@@ -24,42 +24,42 @@ def get_main_menu(user_id):
     return main_menu_panel
 
 
-main_menu_parent = ReplyKeyboardMarkup(
-    keyboard=[
-        [
-            KeyboardButton(text="davomat hisoboti 📊"),
-        ],
-        [
-            KeyboardButton(text="javob so'rash 🙋‍♂️"),
-            KeyboardButton(text="profil 👤"),
-        ],
-        [
-            KeyboardButton(text="bot haqida 💠"),
-            KeyboardButton(text="aloqaga chiqish 📞"),
-        ],
-        [
-            KeyboardButton(text="Savol so'rash ❓"),
-            KeyboardButton(text="Hisobdan chiqish 🔚"),
-        ],
-    ],
-    resize_keyboard=True,
-)
+# main_menu_parent = ReplyKeyboardMarkup(
+#     keyboard=[
+#         [
+#             KeyboardButton(text="davomat hisoboti 📊"),
+#         ],
+#         [
+#             KeyboardButton(text="javob so'rash 🙋‍♂️"),
+#             KeyboardButton(text="profil 👤"),
+#         ],
+#         [
+#             KeyboardButton(text="bot haqida 💠"),
+#             KeyboardButton(text="aloqaga chiqish 📞"),
+#         ],
+#         [
+#             KeyboardButton(text="Savol so'rash ❓"),
+#             KeyboardButton(text="Hisobdan chiqish 🔚"),
+#         ],
+#     ],
+#     resize_keyboard=True,
+# )
 
-main_menu_teacher = ReplyKeyboardMarkup(
-    keyboard=[
-        [
-            KeyboardButton(text="davomat 📝"),
-            KeyboardButton(text="sinflar 🧑‍🎓"),
-        ],
-        [
-            KeyboardButton(text="statistika 📊"),
-        ],
-        [
-            KeyboardButton(text="Profildan chiqish 🔙"),
-        ],
-    ],
-    resize_keyboard=True,
-)
+# main_menu_teacher = ReplyKeyboardMarkup(
+#     keyboard=[
+#         [
+#             KeyboardButton(text="davomat 📝"),
+#             KeyboardButton(text="sinflar 🧑‍🎓"),
+#         ],
+#         [
+#             KeyboardButton(text="statistika 📊"),
+#         ],
+#         [
+#             KeyboardButton(text="Profildan chiqish 🔙"),
+#         ],
+#     ],
+#     resize_keyboard=True,
+# )
 
 main_menu_admin = ReplyKeyboardMarkup(
     keyboard=[
@@ -96,6 +96,16 @@ cancel_for_admin_panel = ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(text="bekor qilish 🔙"),
+        ]
+    ],
+    resize_keyboard=True,
+)
+
+
+back_to_main_menu = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text="Bosh menuga qaytish 🔙"),
         ]
     ],
     resize_keyboard=True,

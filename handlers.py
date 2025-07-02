@@ -104,19 +104,31 @@ async def back_to_admin_panel(message: types.Message, state: FSMContext):
     await message.answer("Siz asosiy menudasiz 👇", reply_markup=main_menu_admin)
 
 
-@dp.message(F.text == "Savol so'rash ❓")
+@dp.message(F.text == "Bosh menuga qaytish 🔙")
+async def back_to_maain_panel(message: types.Message, state: FSMContext):
+    await state.clear()
+    user_id = message.from_user.id
+    await message.answer("Siz asosiy menudasiz 👇", reply_markup=get_main_menu(user_id))
+
+
+@dp.message(F.text == "Savollar ❓")
 async def asking_question(message: types.Message, state: FSMContext):
     await message.answer(
-        "So'ramoqchi bo'lgan savolingizni yozib qoldiring 📝: \nE'tibor bering ❗️ Savolingiz maktab ma'muriyatiga yuboriladi, shuning uchun avval o'zingizni tanishtirishni va aniq savol yozishni unutmang.",
-        reply_markup=InlineKeyboardMarkup(
-            inline_keyboard=[
-                [
-                    InlineKeyboardButton(
-                        text="Bekor qilish 🚫", callback_data="cancel_andtomain"
-                    )
-                ]
-            ]
-        ),
+        f"Ko'p soraladigan savollar: \n\n"
+        f"❓ Qabul qachon ochiladi?\n"
+        f"❕Bu haqida kanalda habar qilinadi.\n\n"
+        f"❓ O'quvchilar nechanchi sinfdan qabul qilinadi?\n"
+        f"❕ Hozircha faqat 8-sinfdan.\n\n"
+        f"❓ Qanday turdagi kursal mavjud?\n"
+        f"❕ Asosan Matematika, Fizika, Kimyo, Biologiya fanlariadan.\n\n"
+        f"❓ Kurslar narxi qancha?\n"
+        f"❕ Maktab internatimiz o'quvchilari uchun BEPUL. Boshqalar uchun esa o'qituvchilar bilan aloqaga chiqing.\n\n"
+        f"❓ Maktab ma'muriyati bilan qanday aloqaga chiqishim mumkin?\n"
+        f"❕ Botdagi 'Aloqa 📞' tugmasini bosish orqali.\n\n"
+    )
+    await message.answer(
+        "Diqqat ❗️\nAgar sizning savolingiz tepadagilar ichida mavjud bo'lmasa savolingizni shu yerga yozib qoldiring 📝: \nE'tibor bering ❗️ Savolingiz maktab ma'muriyatiga yuboriladi, shuning uchun avval o'zingizni tanishtirishni va aniq savol yozishni unutmang.",
+        reply_markup=back_to_main_menu,
     )
     await state.set_state(ask_question.question)
 
@@ -149,12 +161,14 @@ async def admission(message: types.Message, state: FSMContext):
 
 @dp.message(F.text == "Biz haqimizda 💠")
 async def teachers_section(message: types.Message, state: FSMContext):
-    await message.answer(f"11 - IDUMI haqida ma'lumotlar: \n\n"
-                         f"|—> Tashkil etilgan yil: 1995 yil\n"
-                         f"|—> Hozirda faoliyat ko'rsatayotgan o'qituvchilar: 28 ta\n"
-                         f"|—> O'quvchilar soni: 280(2024-2025 o'quv yili)\n\n"
-                         f"Bitiruvchilar soni: 87 ta\n"
-                         f"Ulardan o'qishga kirganlar soni: N ta\n")
+    await message.answer(
+        f"11 - IDUMI haqida ma'lumotlar: \n\n"
+        f"|— Tashkil etilgan yil: 1995 yil\n"
+        f"|— Hozirda faoliyat ko'rsatayotgan o'qituvchilar: 28 ta\n"
+        f"|— O'quvchilar soni: 280(2024-2025 o'quv yili)\n\n"
+        f"👉 Bitiruvchilar soni: 87 ta\n"
+        f"👉 Ulardan o'qishga kirganlar soni: N ta\n"
+    )
 
 
 # @dp.message(F.text == "O'qituvchilar uchun parol ✍️")
