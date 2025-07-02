@@ -20,7 +20,7 @@ def get_main_menu(user_id):
         resize_keyboard=True,
     )
     if is_admin(user_id):
-        main_menu_panel.keyboard.row(KeyboardButton(text="admin panel 🧑‍💻"))
+        main_menu_panel.keyboard.append([KeyboardButton(text="admin panel 🧑‍💻")])
     return main_menu_panel
 
 
