@@ -150,9 +150,9 @@ async def admission(message: types.Message, state: FSMContext):
 @dp.message(F.text == "Biz haqimizda 💠")
 async def teachers_section(message: types.Message, state: FSMContext):
     await message.answer(f"11 - IDUMI haqida ma'lumotlar: \n\n"
-                         f"👉 Tashkil etilgan yil: 1995 yil\n"
-                         f"Hozirda faoliyat ko'rsatayotgan o'qituvchilar: 28 ta"
-                         f"O'quvchilar soni: 280(2024-2025 o'quv yili)\n\n"
+                         f"|—> Tashkil etilgan yil: 1995 yil\n"
+                         f"|—> Hozirda faoliyat ko'rsatayotgan o'qituvchilar: 28 ta\n"
+                         f"|—> O'quvchilar soni: 280(2024-2025 o'quv yili)\n\n"
                          f"Bitiruvchilar soni: 87 ta\n"
                          f"Ulardan o'qishga kirganlar soni: N ta\n")
 
