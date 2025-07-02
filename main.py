@@ -17,16 +17,17 @@ async def cmd_start(message: types.Message, state: FSMContext):
     user_id = message.from_user.id 
     if is_user_new(user_id):
         add_user_to_new_users(user_id, message.from_user.full_name, message.from_user.username)
-    if is_user_registered(user_id):
-        level = get_level_user(user_id)
-        if level == "parent":
-            await message.answer("Siz bosh menudasiz 👇", reply_markup=main_menu_parent)
-        elif level == "teacher":
-            await message.answer("Siz bosh menudasiz 👇", reply_markup=main_menu_teacher)
-        else:
-            await message.answer("Siz bosh menudasiz 👇", reply_markup=main_menu_admin)
-    else:
-        await message.answer("Assalomu alaykum 👋\n11 - IDUMIning rasmiy botiga hush kelibsiz 😊\nBotga kim sifatida kirmoqdasiz ? 👇", reply_markup=select_level_users)
+    # if is_user_registered(user_id):
+    #     level = get_level_user(user_id)
+    #     if level == "parent":
+    #         await message.answer("Siz bosh menudasiz 👇", reply_markup=main_menu_parent)
+    #     elif level == "teacher":
+    #         await message.answer("Siz bosh menudasiz 👇", reply_markup=main_menu_teacher)
+    #     else:
+    #         await message.answer("Siz bosh menudasiz 👇", reply_markup=main_menu_admin)
+    # else:
+    #     await message.answer("Assalomu alaykum 👋\n11 - IDUMIning rasmiy botiga hush kelibsiz 😊\nBotga kim sifatida kirmoqdasiz ? 👇", reply_markup=select_level_users)
+    await message.answer("11 - IDUMIning rasmiy botiga hush kelibsiz 😊\nQuidagilardan birini tanlang: ", reply_markup=get_main_menu(user_id))
 
 
 async def main():

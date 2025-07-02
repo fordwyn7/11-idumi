@@ -132,6 +132,13 @@ def get_admins():
     conn.close()
     return admins
 
+def is_admin(user_id):
+    conn = sqlite3.connect("users_database.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM admins WHERE user_id = ?", (user_id,))
+    result = cursor.fetchone()
+    conn.close()
+    return result is not None
 
 def get_seria_by_user_id(user_id):
     conn = sqlite3.connect("users_database.db")

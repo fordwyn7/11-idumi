@@ -1,5 +1,27 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+from functions import is_admin
 
+
+def get_main_menu(user_id):
+    main_menu_panel = ReplyKeyboardMarkup(
+        keyboard=[
+            [
+                KeyboardButton(text="Qabul 📩"),
+            ],
+            [
+                KeyboardButton(text="O'qituvchilar 👨‍🏫"),
+                KeyboardButton(text="Statistika 📊"),
+            ],
+            [
+                KeyboardButton(text="Aloqa 📞"),
+                KeyboardButton(text="Biz haqimizda 💠"),
+            ],
+        ],
+        resize_keyboard=True,
+    )
+    if is_admin(user_id):
+        main_menu_panel.keyboard.insert([KeyboardButton(text="admin panel 🧑‍💻")])
+    return main_menu_panel
 
 main_menu_parent = ReplyKeyboardMarkup(
     keyboard=[
