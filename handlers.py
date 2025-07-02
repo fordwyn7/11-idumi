@@ -6,6 +6,10 @@ from functions import *
 from middlewares.middleware import *
 import sqlite3
 
+@dp.message(F.text == "admin panel 🧑‍💻")
+@admin_required()
+async def admin_pannell(message: types.Message):
+    
 
 @dp.message(F.text == "Statistika ⭐️")
 @admin_required()
@@ -127,7 +131,7 @@ async def asking_question(message: types.Message, state: FSMContext):
         f"❕ Botdagi 'Aloqa 📞' tugmasini bosish orqali.\n\n"
     )
     await message.answer(
-        "Diqqat ❗️\nAgar sizning savolingiz tepadagilar ichida mavjud bo'lmasa savolingizni shu yerga yozib qoldiring 📝: \nE'tibor bering ❗️ Savolingiz maktab ma'muriyatiga yuboriladi, shuning uchun avval o'zingizni tanishtirishni va aniq savol yozishni unutmang.",
+        f"Agar boshqa savolingiz bo'lsa uni shu yerga yozib qoldiring 📝: ",
         reply_markup=back_to_main_menu,
     )
     await state.set_state(ask_question.question)
