@@ -6,10 +6,12 @@ from functions import *
 from middlewares.middleware import *
 import sqlite3
 
+
 @dp.message(F.text == "admin panel 🧑‍💻")
 @admin_required()
 async def admin_pannell(message: types.Message):
-    
+    await message.answer("Siz admin paneldasiz 👇", reply_markup=main_menu_admin)
+
 
 @dp.message(F.text == "Statistika ⭐️")
 @admin_required()
